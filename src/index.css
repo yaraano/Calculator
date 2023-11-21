@@ -12,14 +12,46 @@ code {
     monospace;
 }
 
+.container {
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+}
+
 .box h4 {
     width: 50px;
 }
 .box {
+  width: 157px;
+  border: rgb(128, 128, 128) solid 2px;
+}
+.inner-box {
   display: flex;
   flex-wrap: wrap;
-  width: 150px;
+  width: 157px;
 }
-h4,h6 {
+h4,h6,h3 {
   text-align: center;
+  word-wrap: break-word;
+}
+
+.deleteDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.inner-box div {
+  border: rgb(128, 128, 128) solid 1px;
+}
+
+.del {
+  border-left: rgb(128, 128, 128) solid 2px;
+  height: 100%;
+}
+
+.deleteDiv div {
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }

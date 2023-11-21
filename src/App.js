@@ -1,16 +1,24 @@
 import React, {useState} from "react";
-function App() {
 
-        let [state, setState] = useState('0');
+const App = () => {
 
-        const handleNum = (e) => {
-            const numValue = (e.target.innerText);
-            if (state === '0') {
-                setState(numValue)
-            } else {
-                setState((prev) => prev + numValue)
-            }
+    let [state, setState] = useState('0');
+    let [lastOperation, setLastOperation] = useState(null);
+
+    const handleNum = (e) => {
+        const numValue = (e.target.innerText);
+        if (state === '0') {
+            setState(numValue)
+        } else {
+            setState((prev) => prev + numValue)
         }
+    }
+    const handleSign = (e) => {
+        const numValue = (e.target.innerText);
+            setState((prev) => prev + numValue)
+        setLastOperation(numValue);
+
+    }
     const handleNull = (e) => {
         const numValue = (e.target.innerText);
         if (state !== '0') {
@@ -18,49 +26,56 @@ function App() {
         }
     }
 
-        const handleClear = () => {
-            setState(state = '0')
-        }
-        const handleDelete = () => {
-            if (state !== '0') {
-                setState(state.slice(0, -1))
-            }
-        }
-        const handlePlus = (e) => {
-            const numValue = (e.target.innerText)
-            if (!state.includes("+")) {
-                setState((prev) => prev + numValue);
-            }
-        }
-    const handleMinus = (e) => {
-        const numValue = (e.target.innerText)
-        if (!state.includes("-")) {
-            setState((prev) => prev + numValue);
+    const handleClear = () => {
+        setState(state = '0')
+        setLastOperation(null);
+    }
+    const handleDelete = () => {
+        if (state !== '0') {
+            setState(state.slice(0, -1))
         }
     }
-        const handleSum = (e) => {
-            setState(state = eval(state))
+    const handlePlus = (e) => {
+        const numValue = (e.target.innerText)
+        setState((prev) => prev + numValue);
+        setLastOperation(numValue);
+    }
+    const handleMinus = (e) => {
+        const numValue = (e.target.innerText)
+        setState((prev) => prev + numValue);
+        setLastOperation(numValue);
+    }
+    const handleSum = (e) => {
+        if (lastOperation) {
+            setState((prev) => eval(prev));
         }
+    }
 
     return (
         <div className={"container"}>
-            <h3>{state}</h3>
             <div className="box">
-                <h4 onClick={handleNum}>1</h4>
-                <h4 onClick={handleNum}>2</h4>
-                <h4 onClick={handleNum}>3</h4>
-                <h4 onClick={handleNum}>4</h4>
-                <h4 onClick={handleNum}>5</h4>
-                <h4 onClick={handleNum}>6</h4>
-                <h4 onClick={handleNum}>7</h4>
-                <h4 onClick={handleNum}>8</h4>
-                <h4 onClick={handleNum}>9</h4>
-                <h4 onClick={handleMinus}>-</h4>
-                <h4 onClick={handleNull}>0</h4>
-                <h4 onClick={handlePlus}>+</h4>
-                <h6 onClick={handleClear} >Clear</h6>
-                <h6 onClick={handleDelete} >Delete</h6>
-                <h4 onClick={handleSum}>=</h4>
+                <h3>{state}</h3>
+                <div className={'inner-box'}>
+                    <div onClick={handleNum} ><h4>1</h4></div>
+                    <div onClick={handleNum} ><h4>2</h4></div>
+                    <div onClick={handleNum} ><h4>3</h4></div>
+                    <div onClick={handleNum} ><h4>4</h4></div>
+                    <div onClick={handleNum} ><h4>5</h4></div>
+                    <div onClick={handleNum} ><h4>6</h4></div>
+                    <div onClick={handleNum} ><h4>7</h4></div>
+                    <div onClick={handleNum} ><h4>8</h4></div>
+                    <div onClick={handleNum} ><h4>9</h4></div>
+                    <div onClick={handleMinus}><h4>-</h4></div>
+                    <div onClick={handleNull}><h4>0</h4></div>
+                    <div onClick={handlePlus}><h4>+</h4></div>
+                    <div onClick={handleSign}><h4>/</h4></div>
+                    <div onClick={handleSign}><h4>*</h4></div>
+                    <div onClick={handleSum}><h4>=</h4></div>
+                    <div className={'deleteDiv'}>
+                        <div onClick={handleClear}><h5>Acc</h5></div>
+                        <div onClick={handleDelete}><h5>Del</h5></div>
+                    </div>
+                </div>
             </div>
         </div>
     );
