@@ -1,55 +1,52 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import * as math from "mathjs";
 
 const App = () => {
-
-    let [state, setState] = useState('0');
-    let [lastOperation, setLastOperation] = useState(null);
-
+    let [state, setState] = useState("0");
     const handleNum = (e) => {
-        const numValue = (e.target.innerText);
-        if (state === '0') {
-            setState(numValue)
+        const numValue = e.target.innerText;
+        if (state === "0") {
+            setState(numValue);
         } else {
-            setState((prev) => prev + numValue)
-        }
-    }
-    const handleSign = (e) => {
-        const numValue = (e.target.innerText);
-            setState((prev) => prev + numValue)
-        setLastOperation(numValue);
-
-    }
-    const handleNull = (e) => {
-        const numValue = (e.target.innerText);
-        if (state !== '0') {
             setState((prev) => prev + numValue);
         }
-    }
+    };
+
+    const handleSign = (e) => {
+        const numValue = e.target.innerText;
+        setState((prev) => prev + numValue);
+    };
+
+    const handleNull = (e) => {
+        const numValue = e.target.innerText;
+        if (state !== "0") {
+            setState((prev) => prev + numValue);
+        }
+    };
 
     const handleClear = () => {
-        setState(state = '0')
-        setLastOperation(null);
-    }
+        setState("0");
+    };
+
     const handleDelete = () => {
-        if (state !== '0') {
-            setState(state.slice(0, -1))
+        if (state !== "0") {
+            setState((prev) => prev.slice(0, -1));
         }
-    }
+    };
+
     const handlePlus = (e) => {
-        const numValue = (e.target.innerText)
+        const numValue = e.target.innerText;
         setState((prev) => prev + numValue);
-        setLastOperation(numValue);
-    }
+    };
+
     const handleMinus = (e) => {
-        const numValue = (e.target.innerText)
+        const numValue = e.target.innerText;
         setState((prev) => prev + numValue);
-        setLastOperation(numValue);
-    }
-    const handleSum = (e) => {
-        if (lastOperation) {
-            setState((prev) => eval(prev));
-        }
-    }
+    };
+
+    const handleSum = () => {
+        setState((prev) => String(math.evaluate(prev)));
+    };
 
     return (
         <div className={"container"}>
